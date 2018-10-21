@@ -205,10 +205,14 @@ def retrieve(func):
             # is this a snapshot though?
             retr = retrieved.json()
             # I know, I know
-            if isinstance(retr, dict) and retr.get('data', {}).get('linkMode', {}) == u"imported_url":
+            if (
+                isinstance(retr, dict)
+                and retr.get("data", {}).get("linkMode", {}) == "imported_url"
+            ):
                 return retrieved.content
             else:
                 return retr
+
     return wrapped_f
 
 
@@ -646,7 +650,7 @@ class Zotero(object):
         """
         if not filename:
             try:
-                filename = self.item(itemkey)['data']['filename']
+                filename = self.item(itemkey)["data"]["filename"]
             except TypeError:
                 filename = "{i}.zip".format(i=itemkey)
         if path:
@@ -654,7 +658,7 @@ class Zotero(object):
         else:
             pth = filename
         to_write = self.file(itemkey)
-        with open(pth, 'wb') as f:
+        with open(pth, "wb") as f:
             f.write(to_write)
         return pth
 
